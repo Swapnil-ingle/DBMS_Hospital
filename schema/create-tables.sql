@@ -58,3 +58,34 @@ CREATE TABLE `Room` (
   `Wing` varchar(5) NOT NULL,
   PRIMARY KEY (`Identifier`)
 );
+
+CREATE TABLE `Prescriptions` (
+    `Identifier` bigint(20) NOT NULL AUTO_INCREMENT,
+    `Issued_To` int  NOT NULL,
+    `Issued_By` int  NOT NULL,
+    `Drug_Issued` int  NOT NULL,
+    `Prescription_Date` date  NOT NULL,
+    `Dosage` int  NOT NULL,
+    `Comments` text  NOT NULL,
+    PRIMARY KEY (`Identifier`),
+    CONSTRAINT `FK_Prescriptions_Issued_To` FOREIGN KEY(`Issued_To`) REFERENCES `Patient` (`Identifier`),
+    CONSTRAINT `FK_Prescriptions_Issued_By` FOREIGN KEY(`Issued_By`) REFERENCES `Staff` (`Identifier`),
+    CONSTRAINT `FK_Prescriptions_Drug_Issued` FOREIGN KEY(`Drug_Issued`) REFERENCES `Drugs` (`Identifier`),
+    CONSTRAINT `FK_Prescriptions_Dosage` FOREIGN KEY(`Dosage`) REFERENCES `Dosage` (`Identifier`)
+);
+
+CREATE TABLE `Drugs` (
+    `Identifier` bigint(20) NOT NULL AUTO_INCREMENT,
+    `Short_name` varchar(50) NOT NULL,
+    `Long_name` varchar(255) NOT NULL,
+    `Stock_quantity` int NOT NULL,
+    `Expiry_Date` date NOT NULL,
+    PRIMARY KEY (`Identifier`)
+);
+
+CREATE TABLE `Dosage` (
+    `Identifier` bigint(20) NOT NULL AUTO_INCREMENT,
+    `No_Of_Dosage` int NOT NULL,
+    `Period_Interval` varchar(10) NOT NULL,
+    PRIMARY KEY (`Identifier`)
+);
