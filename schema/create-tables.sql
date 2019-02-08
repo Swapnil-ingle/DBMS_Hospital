@@ -89,3 +89,91 @@ CREATE TABLE `Dosage` (
     `Period_Interval` varchar(10) NOT NULL,
     PRIMARY KEY (`Identifier`)
 );
+
+CREATE TABLE `Billing` (
+    `Identifier` bigint(20)  NOT NULL ,
+    `Patient_ID` int  NOT NULL ,
+    `Amount` decimal(10,2)  NOT NULL ,
+    `Date` date  NOT NULL ,
+    `Insured_ID` int  NULL ,
+    PRIMARY KEY (`Identifier`),
+    CONSTRAINT `FK_Billing_Patient_ID` FOREIGN KEY(`Patient_ID`) REFERENCES `Patient` (`Identifier`),
+    CONSTRAINT `FK_Billing_Insured_ID` FOREIGN KEY(`Insured_ID`) REFERENCES `Insurance_Providers` (`Identifier`)
+);
+
+CREATE TABLE `Leaves` (
+    `Identifier` bigint(20)  NOT NULL ,
+    `Staff_ID` int  NOT NULL ,
+    `Date` date  NOT NULL ,
+    PRIMARY KEY (`Identifier`),
+    CONSTRAINT `FK_Leaves_Staff_ID` FOREIGN KEY(`Staff_ID`) REFERENCES `Staff` (`Identifier`)
+);
+
+CREATE TABLE `Salary` (
+    `Identifier` bigint(20)  NOT NULL ,
+    `Staff_ID` int  NOT NULL ,
+    `Amount` decimal(10,2)  NOT NULL ,
+    `Credited_On` date  NOT NULL ,
+    `Account_Number` varchar(10)  NOT NULL ,
+    PRIMARY KEY (`Identifier`),
+    CONSTRAINT `FK_Salary_Staff_ID` FOREIGN KEY(`Staff_ID`) REFERENCES `Staff` (`Identifier`)
+);
+
+CREATE TABLE `Expenses` (
+    `Identifier` bigint(20)  NOT NULL ,
+    `Type_Of_Expense` int  NOT NULL ,
+    `Date` date  NOT NULL ,
+    `Amount_Spent` decimal(10,2)  NOT NULL ,
+    `Supervised_By` int  NOT NULL ,
+    PRIMARY KEY (`Identifier`),
+    CONSTRAINT `FK_Expenses_Type_Of_Expense` FOREIGN KEY(`Type_Of_Expense`) REFERENCES `Expense_Type` (`Identifier`),
+    CONSTRAINT `FK_Expenses_Supervised_By` FOREIGN KEY(`Supervised_By`) REFERENCES `Staff` (`Identifier`)
+);
+
+CREATE TABLE `Expense_Type` (
+    `Identifier` bigint(20)  NOT NULL ,
+    `Name` varchar(20)  NOT NULL ,
+    `Detail` text  NOT NULL ,
+    PRIMARY KEY (`Identifier`)
+);
+
+CREATE TABLE `Departments` (
+    `Identifier` bigint(20)  NOT NULL ,
+    `Name` varchar(20)  NOT NULL ,
+    `Building` int  NOT NULL ,
+    `Budget` decimal(10,2)  NOT NULL ,
+    `Head_Staff` int  NOT NULL ,
+    PRIMARY KEY (`Identifier`),
+    CONSTRAINT `FK_Departments_Building` FOREIGN KEY(`Building`) REFERENCES `Buildings` (`Identifier`),
+    CONSTRAINT `FK_Departments_Head_Staff` FOREIGN KEY(`Head_Staff`) REFERENCES `Staff` (`Identifier`)
+);
+
+CREATE TABLE `Buildings` (
+    `Identifier` bigint(20)  NOT NULL ,
+    `Name` varchar(20)  NOT NULL ,
+    PRIMARY KEY (`Identifier`)
+);
+
+CREATE TABLE `Insurance_Providers` (
+    `Identifier` bigint(20)  NOT NULL ,
+    `Name` varchar(20)  NOT NULL ,
+    PRIMARY KEY (`Identifier`)
+);
+
+CREATE TABLE `Insurance_Plans` (
+    `Identifier` bigint(20)  NOT NULL ,
+    `Name` varchar(20)  NOT NULL ,
+    `Premium` decimal(10,2)  NOT NULL ,
+    `Coverage` decimal(10,2)  NOT NULL ,
+    `Insurance_Provider` int  NOT NULL ,
+    PRIMARY KEY (`Identifier`),
+    CONSTRAINT `FK_Insurance_Plans_Insurance_Provider` FOREIGN KEY(`Insurance_Provider`) REFERENCES `Insurance_Providers` (`Identifier`)
+);
+
+CREATE TABLE `Hospitals_Covered_By_IP` (
+    `Identifier` bigint(20)  NOT NULL ,
+    `Name` varchar(20)  NOT NULL ,
+    `Insurance_Provider` int  NOT NULL ,
+    PRIMARY KEY (`Identifier`),
+    CONSTRAINT `FK_Hospitals_Covered_By_IP_Insurance_Provider` FOREIGN KEY(`Insurance_Provider`) REFERENCES `Insurance_Providers` (`Identifier`)
+);
