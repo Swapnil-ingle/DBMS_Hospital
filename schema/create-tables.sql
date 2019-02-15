@@ -110,7 +110,7 @@ CREATE TABLE `Prescriptions` (
 );
 
 CREATE TABLE `Billing` (
-    `Identifier` bigint(20)  NOT NULL ,
+    `Identifier` bigint(20)  NOT NULL AUTO_INCREMENT,
     `Patient_ID` bigint(20)  NOT NULL ,
     `Amount` decimal(10,2)  NOT NULL ,
     `Date` date  NOT NULL ,
@@ -121,7 +121,7 @@ CREATE TABLE `Billing` (
 );
 
 CREATE TABLE `Leaves` (
-    `Identifier` bigint(20)  NOT NULL ,
+    `Identifier` bigint(20)  NOT NULL AUTO_INCREMENT,
     `Staff_ID` bigint(20)  NOT NULL ,
     `Date` date  NOT NULL ,
     PRIMARY KEY (`Identifier`),
@@ -129,7 +129,7 @@ CREATE TABLE `Leaves` (
 );
 
 CREATE TABLE `Salary` (
-    `Identifier` bigint(20)  NOT NULL ,
+    `Identifier` bigint(20)  NOT NULL AUTO_INCREMENT,
     `Staff_ID` bigint(20)  NOT NULL ,
     `Amount` decimal(10,2)  NOT NULL ,
     `Credited_On` date  NOT NULL ,
@@ -139,7 +139,7 @@ CREATE TABLE `Salary` (
 );
 
 CREATE TABLE `Expenses` (
-    `Identifier` bigint(20)  NOT NULL ,
+    `Identifier` bigint(20)  NOT NULL AUTO_INCREMENT,
     `Type_Of_Expense` bigint(20)  NOT NULL ,
     `Date` date  NOT NULL ,
     `Amount_Spent` decimal(10,2)  NOT NULL ,
@@ -150,7 +150,7 @@ CREATE TABLE `Expenses` (
 );
 
 CREATE TABLE `Departments` (
-    `Identifier` bigint(20)  NOT NULL ,
+    `Identifier` bigint(20)  NOT NULL AUTO_INCREMENT,
     `Name` varchar(20)  NOT NULL ,
     `Building` bigint(20)  NOT NULL ,
     `Budget` decimal(10,2)  NOT NULL ,
@@ -161,7 +161,7 @@ CREATE TABLE `Departments` (
 );
 
 CREATE TABLE `Insurance_Plans` (
-    `Identifier` bigint(20)  NOT NULL ,
+    `Identifier` bigint(20)  NOT NULL AUTO_INCREMENT,
     `Name` varchar(20)  NOT NULL ,
     `Premium` decimal(10,2)  NOT NULL ,
     `Coverage` decimal(10,2)  NOT NULL ,
@@ -171,7 +171,7 @@ CREATE TABLE `Insurance_Plans` (
 );
 
 CREATE TABLE `Hospitals_Covered_By_IP` (
-    `Identifier` bigint(20)  NOT NULL ,
+    `Identifier` bigint(20)  NOT NULL AUTO_INCREMENT,
     `Name` varchar(20)  NOT NULL ,
     `Insurance_Provider` bigint(20)  NOT NULL ,
     PRIMARY KEY (`Identifier`),
