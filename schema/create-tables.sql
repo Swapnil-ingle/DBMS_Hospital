@@ -9,20 +9,20 @@ CREATE TABLE `Patient` (
 );
 
 CREATE TABLE `Expense_Type` (
-    `Identifier` bigint(20)  NOT NULL ,
+    `Identifier` bigint(20)  NOT NULL AUTO_INCREMENT,
     `Name` varchar(20)  NOT NULL ,
     `Detail` text  NOT NULL ,
     PRIMARY KEY (`Identifier`)
 );
 
 CREATE TABLE `Buildings` (
-    `Identifier` bigint(20)  NOT NULL ,
+    `Identifier` bigint(20)  NOT NULL AUTO_INCREMENT,
     `Name` varchar(20)  NOT NULL ,
     PRIMARY KEY (`Identifier`)
 );
 
 CREATE TABLE `Insurance_Providers` (
-    `Identifier` bigint(20)  NOT NULL ,
+    `Identifier` bigint(20)  NOT NULL AUTO_INCREMENT,
     `Name` varchar(20)  NOT NULL ,
     PRIMARY KEY (`Identifier`)
 );
