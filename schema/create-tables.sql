@@ -29,8 +29,9 @@ CREATE TABLE `Insurance_Providers` (
 
 CREATE TABLE `Shift` (
   `Identifier` bigint(20) NOT NULL AUTO_INCREMENT,
-  `Start_Time` timestamp NOT NULL,
-  `End_Time` timestamp NOT NULL,
+  `Name` varchar(20) NOT NULL,
+  `Start_Time` time NOT NULL,
+  `End_Time` time NOT NULL,
   PRIMARY KEY (`Identifier`)
 );
 
@@ -45,6 +46,7 @@ CREATE TABLE `Drugs` (
 
 CREATE TABLE `Dosage` (
     `Identifier` bigint(20) NOT NULL AUTO_INCREMENT,
+    `Name` varchar(20) NOT NULL,
     `No_Of_Dosage` int NOT NULL,
     `Period_Interval` varchar(10) NOT NULL,
     PRIMARY KEY (`Identifier`)
@@ -52,10 +54,12 @@ CREATE TABLE `Dosage` (
 
 CREATE TABLE `Room` (
   `Identifier` bigint(20) NOT NULL AUTO_INCREMENT,
-  `Number` int NOT NULL,
+  `Room_Number` int NOT NULL,
   `Floor` int NOT NULL,
   `Wing` varchar(5) NOT NULL,
-  PRIMARY KEY (`Identifier`)
+  `Building_ID` varchar(20) NOT NULL,
+  PRIMARY KEY (`Identifier`),
+  CONSTRAINT `FK_Building` FOREIGN KEY (`Building_ID`) REFERENCES `Buildings` (`Identifier`)
 );
 
 CREATE TABLE `Staff` (
