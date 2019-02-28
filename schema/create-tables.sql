@@ -1,4 +1,4 @@
-CREATE TABLE `Patient` (
+CREATE TABLE `Patients` (
   `Identifier` bigint(20) NOT NULL AUTO_INCREMENT,
   `Name` varchar(50) NOT NULL,
   `Address` varchar(50) NOT NULL,
@@ -44,6 +44,12 @@ CREATE TABLE `Drugs` (
     PRIMARY KEY (`Identifier`)
 );
 
+CREATE TABLE `Designations` (
+    `Identifier` bigint(20) NOT NULL AUTO_INCREMENT,
+    `Name` varchar(50) NOT NULL,
+    PRIMARY KEY (`Identifier`)
+);
+
 CREATE TABLE `Dosage` (
     `Identifier` bigint(20) NOT NULL AUTO_INCREMENT,
     `Name` varchar(20) NOT NULL,
@@ -56,23 +62,44 @@ CREATE TABLE `Room` (
   `Identifier` bigint(20) NOT NULL AUTO_INCREMENT,
   `Room_Number` int NOT NULL,
   `Floor` int NOT NULL,
-  `Wing` varchar(5) NOT NULL,
-  `Building_ID` varchar(20) NOT NULL,
+  `Wing` varchar(20) NOT NULL,
+  `Building_ID` bigint(20) NOT NULL,
   PRIMARY KEY (`Identifier`),
-  CONSTRAINT `FK_Building` FOREIGN KEY (`Building_ID`) REFERENCES `Buildings` (`Identifier`)
+  CONSTRAINT `FK_Building_ID` FOREIGN KEY (`Building_ID`) REFERENCES `Buildings` (`Identifier`)
+);
+
+CREATE TABLE `Departments` (
+  `Identifier` bigint(20)  NOT NULL AUTO_INCREMENT,
+  `Name` varchar(20)  NOT NULL ,
+  `Building_ID` bigint(20)  NOT NULL ,
+  `Budget` decimal(10,2)  NOT NULL ,
+  PRIMARY KEY (`Identifier`),
+  CONSTRAINT `FK_Departments_Building` FOREIGN KEY (`Building_ID`) REFERENCES `Buildings` (`Identifier`)
 );
 
 CREATE TABLE `Staff` (
   `Identifier` bigint(20) NOT NULL AUTO_INCREMENT,
   `Name` varchar(50) NOT NULL,
-  `Department` varchar(50) NOT NULL,
-  `Position` varchar(50) NOT NULL,
+  `Department_ID` bigint(20) NOT NULL,
+  `Designation_ID` bigint(20) NOT NULL,
   `Address` varchar(50) NOT NULL,
   `Contact_number` int NOT NULL,
   `Email` varchar(50) NOT NULL,
   `Shift_ID` bigint(20) NOT NULL,
   PRIMARY KEY (`Identifier`),
-  CONSTRAINT `FK_Staff_Shift_ID` FOREIGN KEY (`Shift_ID`) REFERENCES `Shift` (`Identifier`)
+  CONSTRAINT `FK_Staff_Shift_ID` FOREIGN KEY (`Shift_ID`) REFERENCES `Shift` (`Identifier`),
+  CONSTRAINT `FK_Deparments_Department_ID` FOREIGN KEY (`Department_ID`) REFERENCES `Departments` (`Identifier`),
+  CONSTRAINT `FK_Designations_Designation_ID` FOREIGN KEY (`Designation_ID`) REFERENCES `Designations` (`Identifier`)
+);
+
+CREATE TABLE `Department_Head_Staff`(
+  `Identifier`  bigint(20) NOT NULL AUTO_INCREMENT,
+  `Department_ID` bigint(20) NOT NULL,
+  `Head_Staff_ID` bigint(20) NOT NULL,
+  PRIMARY KEY (`Identifier`),
+  CONSTRAINT `UNQ_Department_ID` UNIQUE (`Department_ID`),
+  CONSTRAINT `FK_Departments_ID` FOREIGN KEY (`Department_ID`) REFERENCES `Departments` (`Identifier`),
+  CONSTRAINT `FK_Staff_ID` FOREIGN KEY (`Head_Staff_ID`) REFERENCES `Staff` (`Identifier`)
 );
 
 CREATE TABLE `Appointments` (
@@ -151,17 +178,6 @@ CREATE TABLE `Expenses` (
     PRIMARY KEY (`Identifier`),
     CONSTRAINT `FK_Expenses_Type_Of_Expense` FOREIGN KEY(`Type_Of_Expense`) REFERENCES `Expense_Type` (`Identifier`),
     CONSTRAINT `FK_Expenses_Supervised_By` FOREIGN KEY(`Supervised_By`) REFERENCES `Staff` (`Identifier`)
-);
-
-CREATE TABLE `Departments` (
-    `Identifier` bigint(20)  NOT NULL AUTO_INCREMENT,
-    `Name` varchar(20)  NOT NULL ,
-    `Building` bigint(20)  NOT NULL ,
-    `Budget` decimal(10,2)  NOT NULL ,
-    `Head_Staff` bigint(20)  NOT NULL ,
-    PRIMARY KEY (`Identifier`),
-    CONSTRAINT `FK_Departments_Building` FOREIGN KEY(`Building`) REFERENCES `Buildings` (`Identifier`),
-    CONSTRAINT `FK_Departments_Head_Staff` FOREIGN KEY(`Head_Staff`) REFERENCES `Staff` (`Identifier`)
 );
 
 CREATE TABLE `Insurance_Plans` (

@@ -69,5 +69,45 @@ INSERT INTO Room(Room_Number, Floor, Wing, Building_ID) VALUES
 	(202, 2, 'Left-Upper', 2),
 	(203, 2, 'Left-Upper', 2),
 	(204, 2, 'Left-Upper', 2),
-	(205, 2, 'Left-Upper', 2);
+	(205, 2, 'Left-Upper', 2),
+	(301, 1, 'Mid-Wing', 3),
+	(302, 2, 'Mid-Wing', 3);
 
+INSERT INTO Designations(Name) VALUES
+	('Veteran Surgeon'),
+	('Neurologist'),
+	('Medical receptionist'),
+	('Dietitian'),
+	('Clinical Nurse'),
+	('Nurse Manager');
+
+INSERT INTO Departments(Name, Building_ID, Budget) VALUES
+	('Emergency Department', 1, 100000.00),
+	('Intensive care unit', 1, 125000.00),
+	('Burn Center', 2, 100000.00),
+	('Hospital pharmacy', 3, 75000.00),
+	('Physical Therapy', 3, 75000.00),
+	('Psychiatric hospital', 3, 90000.00);
+
+INSERT INTO Staff(Name, Department_ID, Designation_ID, Address, Contact_number, Email, Shift_ID) VALUES
+	('Dr. Blake', 1, 1, 'NYC stern road, NYC', 13245687, 'dr.blake@NYC', 1),
+	('Dr. Mark', 6, 2, 'NYC stern road, NYC', 13245687, 'dr.Mark@NYC', 1),
+	('Andrew', 1, 3, 'NYC stern road, NYC', 13245687, 'Andrew@NYC', 2),
+	('Louise', 1, 5, 'NYC stern road, NYC', 13245687, 'Louise@NYC', 2);
+
+INSERT INTO Department_Head_Staff(Department_ID, Head_Staff_ID) VALUES
+	(1, 1),
+	(2, 1),
+	(3, 4),
+	(6, 2);
+
+INSERT INTO Appointments(Scheduled_On, Patient_ID, Staff_Allocated) VALUES
+	('2019-03-01', 1, 3),
+	('2019-03-02', 2, 3),
+	('2019-03-03', 3, 3),
+	('2019-03-04', 4, 3),
+	('2019-03-05', 5, 3);
+
+INSERT INTO Hospitalization(Patient_ID, Staff_Allocated, Room_Allocated, Hospitalized_On, Discharged_On) VALUES
+	(1, 1, 1, '2019-03-01', NULL),
+	(4, 2, 21, '2019-03-01', NULL);
