@@ -108,7 +108,7 @@ CREATE TABLE `Appointments` (
   `Patient_ID` bigint(20) NOT NULL,
   `Staff_Allocated` bigint(20) NOT NULL,
   PRIMARY KEY (`Identifier`),
-  CONSTRAINT `FK_Appointments_Patient_ID` FOREIGN KEY (`Patient_ID`) REFERENCES `Patient` (`Identifier`),
+  CONSTRAINT `FK_Appointments_Patient_ID` FOREIGN KEY (`Patient_ID`) REFERENCES `Patients` (`Identifier`),
   CONSTRAINT `FK_Appointments_Staff_Allocated` FOREIGN KEY (`Staff_Allocated`) REFERENCES `Staff` (`Identifier`)
 );
 
@@ -120,7 +120,7 @@ CREATE TABLE `Hospitalization` (
   `Hospitalized_On` date NOT NULL,
   `Discharged_On` date NULL,
   PRIMARY KEY (`Identifier`),
-  CONSTRAINT `FK_Hospitalization_Patient_ID` FOREIGN KEY (`Patient_ID`) REFERENCES `Patient` (`Identifier`),
+  CONSTRAINT `FK_Hospitalization_Patient_ID` FOREIGN KEY (`Patient_ID`) REFERENCES `Patients` (`Identifier`),
   CONSTRAINT `FK_Hospitalization_Staff_Allocated` FOREIGN KEY (`Staff_Allocated`) REFERENCES `Staff` (`Identifier`),
   CONSTRAINT `FK_Hospitalization_Room_Allocated` FOREIGN KEY (`Room_Allocated`) REFERENCES `Room` (`Identifier`)
 );
@@ -134,7 +134,7 @@ CREATE TABLE `Prescriptions` (
     `Dosage` bigint(20)  NOT NULL,
     `Comments` text  NOT NULL,
     PRIMARY KEY (`Identifier`),
-    CONSTRAINT `FK_Prescriptions_Issued_To` FOREIGN KEY(`Issued_To`) REFERENCES `Patient` (`Identifier`),
+    CONSTRAINT `FK_Prescriptions_Issued_To` FOREIGN KEY(`Issued_To`) REFERENCES `Patients` (`Identifier`),
     CONSTRAINT `FK_Prescriptions_Issued_By` FOREIGN KEY(`Issued_By`) REFERENCES `Staff` (`Identifier`),
     CONSTRAINT `FK_Prescriptions_Drug_Issued` FOREIGN KEY(`Drug_Issued`) REFERENCES `Drugs` (`Identifier`),
     CONSTRAINT `FK_Prescriptions_Dosage` FOREIGN KEY(`Dosage`) REFERENCES `Dosage` (`Identifier`)
@@ -147,7 +147,7 @@ CREATE TABLE `Billing` (
     `Date` date  NOT NULL ,
     `Insured_ID` bigint(20)  NULL ,
     PRIMARY KEY (`Identifier`),
-    CONSTRAINT `FK_Billing_Patient_ID` FOREIGN KEY(`Patient_ID`) REFERENCES `Patient` (`Identifier`),
+    CONSTRAINT `FK_Billing_Patient_ID` FOREIGN KEY(`Patient_ID`) REFERENCES `Patients` (`Identifier`),
     CONSTRAINT `FK_Billing_Insured_ID` FOREIGN KEY(`Insured_ID`) REFERENCES `Insurance_Providers` (`Identifier`)
 );
 
@@ -156,6 +156,7 @@ CREATE TABLE `Leaves` (
     `Staff_ID` bigint(20)  NOT NULL ,
     `Date` date  NOT NULL ,
     PRIMARY KEY (`Identifier`),
+    CONSTRAINT `UNQ_STAFF_ID_MAP_DATE` UNIQUE (`Staff_ID`, `Date`),
     CONSTRAINT `FK_Leaves_Staff_ID` FOREIGN KEY(`Staff_ID`) REFERENCES `Staff` (`Identifier`)
 );
 
@@ -164,7 +165,7 @@ CREATE TABLE `Salary` (
     `Staff_ID` bigint(20)  NOT NULL ,
     `Amount` decimal(10,2)  NOT NULL ,
     `Credited_On` date  NOT NULL ,
-    `Account_Number` varchar(10)  NOT NULL ,
+    `Account_Number` varchar(20)  NOT NULL ,
     PRIMARY KEY (`Identifier`),
     CONSTRAINT `FK_Salary_Staff_ID` FOREIGN KEY(`Staff_ID`) REFERENCES `Staff` (`Identifier`)
 );
@@ -175,6 +176,7 @@ CREATE TABLE `Expenses` (
     `Date` date  NOT NULL ,
     `Amount_Spent` decimal(10,2)  NOT NULL ,
     `Supervised_By` bigint(20)  NOT NULL ,
+    `Description` text NULL,
     PRIMARY KEY (`Identifier`),
     CONSTRAINT `FK_Expenses_Type_Of_Expense` FOREIGN KEY(`Type_Of_Expense`) REFERENCES `Expense_Type` (`Identifier`),
     CONSTRAINT `FK_Expenses_Supervised_By` FOREIGN KEY(`Supervised_By`) REFERENCES `Staff` (`Identifier`)
@@ -182,7 +184,7 @@ CREATE TABLE `Expenses` (
 
 CREATE TABLE `Insurance_Plans` (
     `Identifier` bigint(20)  NOT NULL AUTO_INCREMENT,
-    `Name` varchar(20)  NOT NULL ,
+    `Name` varchar(50)  NOT NULL ,
     `Premium` decimal(10,2)  NOT NULL ,
     `Coverage` decimal(10,2)  NOT NULL ,
     `Insurance_Provider` bigint(20)  NOT NULL ,
@@ -192,7 +194,7 @@ CREATE TABLE `Insurance_Plans` (
 
 CREATE TABLE `Hospitals_Covered_By_IP` (
     `Identifier` bigint(20)  NOT NULL AUTO_INCREMENT,
-    `Name` varchar(20)  NOT NULL ,
+    `Name` varchar(50)  NOT NULL ,
     `Insurance_Provider` bigint(20)  NOT NULL ,
     PRIMARY KEY (`Identifier`),
     CONSTRAINT `FK_Hospitals_Covered_By_IP_Insurance_Provider` FOREIGN KEY(`Insurance_Provider`) REFERENCES `Insurance_Providers` (`Identifier`)

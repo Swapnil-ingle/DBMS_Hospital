@@ -1,6 +1,6 @@
 ## Insert sample data into HIMS DB
 
-INSERT INTO Patient(Name, Address, City, Contact_Number, Email) VALUES 
+INSERT INTO Patients(Name, Address, City, Contact_Number, Email) VALUES 
 	('Sam', 'Gate Avenue, Baker St. 312', 'LA', 123456, 'Sam@LA'),
 	('Max', 'Gate Avenue, Baker St. 313', 'LA', 123456, 'Max@LA'),
 	('Karla', 'Freeway, Indus 12, near Central Park', 'NYC', 123456, 'Karla@NYC'),
@@ -110,4 +110,80 @@ INSERT INTO Appointments(Scheduled_On, Patient_ID, Staff_Allocated) VALUES
 
 INSERT INTO Hospitalization(Patient_ID, Staff_Allocated, Room_Allocated, Hospitalized_On, Discharged_On) VALUES
 	(1, 1, 1, '2019-03-01', NULL),
-	(4, 2, 21, '2019-03-01', NULL);
+	(4, 2, 21, '2019-03-04', NULL);
+
+INSERT INTO Prescriptions(Issued_To, Issued_By, Drug_Issued, Prescription_Date, Dosage, Comments) VALUES
+	(1, 1, 1, '2019-03-01', 3, "Once a day, with water"),
+	(1, 1, 2, '2019-03-01', 1, "Thrice a day, with water, before meal"),
+	(1, 1, 3, '2019-03-01', 2, "Twice a day, with water, before meal"),
+	(4, 2, 8, '2019-03-04', 4, "Once a week, with water, early morning before eating"),
+	(4, 2, 9, '2019-03-04', 2, "Twice a day, with water"),
+	(4, 2, 10, '2019-03-04', 3, "Once a day, with water"),
+	(4, 2, 7, '2019-03-04', 1, "Thrice a day, with water, aftert breakfast, lunch and dinner");
+
+INSERT INTO Billing(Patient_ID, Amount, Date, Insured_ID) VALUES 
+	(1, 1200, '2019-03-01', NULL),
+	(1, 3500, '2019-03-02', NULL),
+	(2, 450, '2019-03-02', 2),
+	(3, 800, '2019-03-03', 3),
+	(4, 2900, '2019-03-04', 1),
+	(4, 1500, '2019-03-05', 1),
+	(5, 750, '2019-03-05', 2);
+
+INSERT INTO Leaves(Staff_ID, Date) VALUES
+	(1, '2019-02-01'),
+	(1, '2019-01-01'),
+	(1, '2019-01-15'),
+	(1, '2019-01-26'),
+	(1, '2019-02-05'),
+	(1, '2019-02-10'),
+	(2, '2019-01-10'),
+	(2, '2019-01-11'),
+	(2, '2019-01-12'),
+	(2, '2019-01-13'),
+	(2, '2019-01-26'),
+	(3, '2019-01-26'),
+	(3, '2019-02-10'),
+	(4, '2019-01-26'),
+	(4, '2019-01-13');
+
+INSERT INTO Salary(Staff_ID, Amount, Credited_On, Account_Number) VALUES 
+	(1, 45000, '2018-12-25', 'SBI10000ACC100'),
+	(2, 25000, '2018-12-25', 'SBI10000ACC101'),
+	(3, 35000, '2018-12-25', 'SBI10000ACC102'),
+	(4, 30000, '2018-12-25', 'SBI10000ACC103'),
+	(1, 45000, '2019-01-25', 'SBI10000ACC100'),
+	(2, 25000, '2019-01-25', 'SBI10000ACC101'),
+	(3, 35000, '2019-01-25', 'SBI10000ACC102'),
+	(4, 30000, '2019-01-25', 'SBI10000ACC103'),
+	(1, 45000, '2019-02-25', 'SBI10000ACC100'),
+	(2, 25000, '2019-02-25', 'SBI10000ACC101'),
+	(3, 35000, '2019-02-25', 'SBI10000ACC102'),
+	(4, 30000, '2019-02-25', 'SBI10000ACC103');
+
+INSERT INTO Expenses(Type_Of_Expense, Date, Amount_Spent, Supervised_By, Description) VALUES
+	(1, '2018-12-30', 3230, 1, "Repaired the leaking pipes in building 'Zeus'"),
+	(1, '2019-02-01', 2000, 1, "Repaired the stairs of floor 1 in building 'Zeus'"),
+	(2, '2019-01-15', 3500, 1, "Bought new freezer tubes"),
+	(3, '2019-01-10', 5000, 1, "Cleaning Building 'Zeus'"),
+	(3, '2019-01-10', 5000, 2, "Cleaning Building 'Ragnarok'"),
+	(3, '2019-01-10', 5000, 3, "Cleaning Building 'Prometheus'"),
+	(3, '2019-01-10', 5000, 4, "Cleaning Building 'Arthur'"),
+	(4, '2019-01-13', 3000, 2, "Built new exaust vents for Building 'Arthur'"),
+	(5, '2019-02-05', 10000, 4, "Bought new Inventory management software");
+
+INSERT INTO Insurance_Plans(Name, Premium, Coverage, Insurance_Provider) VALUES
+	('Health Raksha', 3250, 350000, 3),
+	('ICICI health insurance generic', 4200, 375000, 2),
+	('Angel by Oracle', 6500, 675000, 1);
+
+INSERT INTO Hospitals_Covered_By_IP(Name, Insurance_Provider) VALUES
+	('StarHealth Hospitals', 1),
+	('StarHealth Hospitals', 2),
+	('StarHealth Hospitals', 3),
+	('SingHealth Hospitals', 1),
+	('SingHealth Hospitals', 2),
+	('SingHealth Hospitals', 3),
+	('Atlas Hospitals', 1),
+	('Atlas Hospitals', 2),
+	('Hercules Clinicals', 1);
