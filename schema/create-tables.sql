@@ -104,7 +104,7 @@ CREATE TABLE `Department_Head_Staff`(
 
 CREATE TABLE `Appointments` (
   `Identifier` bigint(20) NOT NULL AUTO_INCREMENT,
-  `Scheduled_On` Date NOT NULL,
+  `Scheduled_On` Datetime NOT NULL,
   `Patient_ID` bigint(20) NOT NULL,
   `Staff_Allocated` bigint(20) NOT NULL,
   PRIMARY KEY (`Identifier`),

@@ -102,11 +102,11 @@ INSERT INTO Department_Head_Staff(Department_ID, Head_Staff_ID) VALUES
 	(6, 2);
 
 INSERT INTO Appointments(Scheduled_On, Patient_ID, Staff_Allocated) VALUES
-	('2019-03-01', 1, 3),
-	('2019-03-02', 2, 3),
-	('2019-03-03', 3, 3),
-	('2019-03-04', 4, 3),
-	('2019-03-05', 5, 3);
+	('2019-03-01 12:00:00', 1, 3),
+	('2019-03-02 11:00:00', 2, 3),
+	('2019-03-03 09:30:00', 3, 3),
+	('2019-03-04 10:00:00', 4, 3),
+	('2019-03-05 13:30:00', 5, 3);
 
 INSERT INTO Hospitalization(Patient_ID, Staff_Allocated, Room_Allocated, Hospitalized_On, Discharged_On) VALUES
 	(1, 1, 1, '2019-03-01', NULL),
