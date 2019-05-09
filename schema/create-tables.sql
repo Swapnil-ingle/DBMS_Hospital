@@ -1,9 +1,9 @@
 CREATE TABLE `Patients` (
   `Identifier` bigint(20) NOT NULL AUTO_INCREMENT,
   `Name` varchar(50) NOT NULL,
-  `Address` varchar(50) NOT NULL,
-  `City` varchar(50) NOT NULL,
-  `Contact_Number` int NOT NULL,
+  `Address` varchar(50) DEFAULT NULL,
+  `City` varchar(50) DEFAULT NULL,
+  `Contact_Number` int DEFAULT NULL,
   `Email` varchar(50) NOT NULL,
   PRIMARY KEY (`Identifier`)
 );
